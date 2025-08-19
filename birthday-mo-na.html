@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy (Age) Birthday! 🎉</title>
+    <meta name="description" content="A beautiful and elegant birthday celebration webpage with animations, confetti, and heartfelt wishes">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Birthday Theme Colors - Soft & Feminine */
+            --background: hsl(350, 20%, 98%);
+            --foreground: hsl(340, 15%, 15%);
+            --card: hsl(0, 0%, 100%);
+            --card-foreground: hsl(340, 15%, 15%);
+            
+            /* Rose Gold Primary */
+            --primary: hsl(350, 75%, 65%);
+            --primary-foreground: hsl(0, 0%, 100%);
+            --primary-glow: hsl(350, 85%, 75%);
+            
+            /* Lavender Secondary */
+            --secondary: hsl(270, 50%, 85%);
+            --secondary-foreground: hsl(270, 15%, 25%);
+            
+            /* Soft Neutrals */
+            --muted: hsl(350, 25%, 95%);
+            --muted-foreground: hsl(340, 20%, 45%);
+            
+            /* Golden Accent */
+            --accent: hsl(45, 85%, 70%);
+            --accent-foreground: hsl(45, 15%, 25%);
+            
+            /* Custom Birthday Colors */
+            --birthday-pink: hsl(350, 75%, 65%);
+            --birthday-purple: hsl(270, 50%, 75%);
+            --birthday-gold: hsl(45, 85%, 70%);
+            --birthday-cream: hsl(350, 25%, 97%);
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, hsl(350, 75%, 65%), hsl(270, 50%, 75%));
+            --gradient-secondary: linear-gradient(45deg, hsl(45, 85%, 70%), hsl(350, 85%, 75%));
+            --gradient-background: linear-gradient(180deg, hsl(350, 20%, 98%), hsl(270, 15%, 96%));
+            --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%, 0.8), hsl(350, 25%, 97%, 0.6));
+            
+            /* Shadows & Effects */
+            --shadow-soft: 0 10px 40px hsl(350, 30%, 85%, 0.3);
+            --shadow-glow: 0 0 30px hsl(350, 75%, 65%, 0.4);
+            --shadow-card: 0 20px 60px hsl(350, 25%, 85%, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--gradient-background);
+            color: var(--foreground);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Birthday Animation Keyframes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { 
+                opacity: 0; 
+                transform: scale(0);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+        }
+
+        @keyframes gentle-bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Birthday Components */
+        .birthday-hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-background);
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .birthday-title {
+            font-size: 4rem;
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+            text-align: center;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px hsl(350, 30%, 85%, 0.3);
+            animation: fade-in-up 1.2s ease-out;
+            margin-bottom: 1rem;
+        }
+
+        .birthday-subtitle {
+            font-size: 1.5rem;
+            text-align: center;
+            color: var(--muted-foreground);
+            font-weight: 300;
+            animation: fade-in-up 1.2s ease-out 0.3s both;
+            margin-bottom: 3rem;
+        }
+
+        .birthday-card {
+            border-radius: 2rem;
+            padding: 3rem;
+            background: var(--gradient-card);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-card);
+            border: 1px solid hsl(350, 30%, 90%, 0.5);
+            max-width: 1000px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .grid-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .birthday-message {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            text-align: center;
+            color: hsl(var(--foreground), 0.8);
+            font-weight: 300;
+        }
+
+        .birthday-signature {
+            font-size: 2rem;
+            font-family: 'Dancing Script', cursive;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .cake-image {
+            width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-glow);
+            animation: gentle-bounce 2s ease-in-out infinite;
+        }
+
+        .cake-container {
+            position: relative;
+        }
+
+        .decoration-emoji {
+            position: absolute;
+            font-size: 2.5rem;
+        }
+
+        .decoration-top-right {
+            top: -0.5rem;
+            right: -0.5rem;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .decoration-bottom-left {
+            bottom: -0.5rem;
+            left: -0.5rem;
+            animation: sparkle 2s ease-in-out infinite 1s;
+        }
+
+        .confetti {
+            position: absolute;
+            pointer-events: none;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .gentle-bounce {
+            animation: gentle-bounce 2s ease-in-out infinite;
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--primary);
+            opacity: 0.3;
+            font-size: 1.5rem;
+            animation: gentle-bounce 2.5s ease-in-out infinite;
+        }
+
+        .ribbon {
+            position: absolute;
+            background: var(--gradient-secondary);
+            transform: rotate(-15deg);
+            box-shadow: var(--shadow-soft);
+            opacity: 0.4;
+        }
+
+        .ribbon-1 {
+            width: 8rem;
+            height: 2rem;
+            top: 5rem;
+            left: 2.5rem;
+        }
+
+        .ribbon-2 {
+            width: 6rem;
+            height: 1.5rem;
+            top: 8rem;
+            right: 4rem;
+            transform: rotate(25deg);
+            opacity: 0.3;
+        }
+
+        .celebration-section {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .celebration-title {
+            font-size: 2.5rem;
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            animation: gentle-bounce 2s ease-in-out infinite;
+        }
+
+        .emoji-decoration {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            font-size: 2rem;
+        }
+
+        .emoji-bounce {
+            animation: gentle-bounce 2s ease-in-out infinite;
+        }
+
+        .tip-section {
+            margin-top: 3rem;
+            opacity: 0.6;
+            text-align: center;
+        }
+
+        .tip-text {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .birthday-title {
+                font-size: 3rem;
+            }
+            
+            .birthday-subtitle {
+                font-size: 1.25rem;
+            }
+            
+            .birthday-card {
+                padding: 2rem;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .celebration-title {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .birthday-title {
+                font-size: 2.5rem;
+            }
+            
+            .birthday-subtitle {
+                font-size: 1rem;
+            }
+            
+            .birthday-card {
+                padding: 1.5rem;
+            }
+            
+            .birthday-message {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="birthday-hero">
+        <!-- Animated Background Elements -->
+        <div id="confetti-container"></div>
+        <div id="sparkle-container"></div>
+        <div id="heart-container"></div>
+
+        <!-- Decorative ribbons -->
+        <div class="ribbon ribbon-1"></div>
+        <div class="ribbon ribbon-2"></div>
+        
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Birthday Title -->
+            <div style="margin-bottom: 2rem;">
+                <h1 class="birthday-title">
+                    Happy (Age) Birthday
+                </h1>
+                <div class="birthday-title" style="font-size: 3.5rem; margin-bottom: 1.5rem;">
+                    (Name)!
+                </div>
+                <p class="birthday-subtitle">
+                    Celebrating another year of your amazing journey ✨
+                </p>
+            </div>
+
+            <!-- Birthday Cake Section -->
+            <div class="birthday-card floating">
+                <div class="grid grid-2">
+                    <div style="order: 2;">
+                        <div class="birthday-message">
+                            <p style="margin-bottom: 1.5rem;">
+                                (Hessage here) 🎉
+                            </p>
+                            <p style="margin-bottom: 1rem;">
+                                (Another message here)
+                            </p>
+                        </div>
+                        <div class="birthday-signature">
+                            With love & best wishes 💕
+                        </div>
+                    </div>
+                    
+                    <div style="order: 1;">
+                        <div class="cake-container">
+                            <img
+                                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=500&fit=crop&crop=center"
+                                alt="Beautiful 19th birthday cake"
+                                class="cake-image"
+                            />
+                            <div class="decoration-emoji decoration-top-right">✨</div>
+                            <div class="decoration-emoji decoration-bottom-left">🎂</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Celebration Message -->
+            <div class="birthday-card celebration-section">
+                <h2 class="celebration-title">
+                    Make a Wish! 🌟
+                </h2>
+                <div class="birthday-message">
+                    <p>
+                        Close your eyes, make a wish, and blow out the candles. 
+                        May all your dreams sparkle and shine as bright as you do!
+                    </p>
+                </div>
+                
+                <!-- Decorative elements -->
+                <div class="emoji-decoration">
+                    <span class="emoji-bounce" style="animation-delay: 0s;">🎈</span>
+                    <span class="emoji-bounce" style="animation-delay: 0.5s;">🎁</span>
+                    <span class="emoji-bounce" style="animation-delay: 1s;">🌸</span>
+                    <span class="emoji-bounce" style="animation-delay: 1.5s;">🦋</span>
+                    <span class="emoji-bounce" style="animation-delay: 2s;">✨</span>
+                </div>
+            </div>
+
+            <!-- Customization hint -->
+            <div class="tip-section">
+                <p class="tip-text">
+
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate confetti pieces
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#e879f9', '#a855f7', '#f59e0b', '#ec4899', '#8b5cf6'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = (Math.random() * 6 + 4) + 'px';
+                confetti.style.height = (Math.random() * 6 + 4) + 'px';
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(confetti);
+            }
+        }
+
+        // Generate sparkles
+        function createSparkles() {
+            const container = document.getElementById('sparkle-container');
+            
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(sparkle);
+            }
+        }
+
+        // Generate floating hearts
+        function createHearts() {
+            const container = document.getElementById('heart-container');
+            
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '♥';
+                heart.style.top = (Math.random() * 80 + 10) + '%';
+                heart.style.left = (Math.random() * 80 + 10) + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createConfetti();
+            createSparkles();
+            createHearts();
+        });
+    </script>
+</body>
+</html>
